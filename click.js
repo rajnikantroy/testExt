@@ -105,20 +105,23 @@ function _copyClick ( info,tab, key) {
         var _d = _win.document;
         _d.execCommand("copy", false, null); 		
 		//chrome.storage.local.set({key: value});
-		
-		chrome.storage.sync.set({[key]: value}, function() {
+		var obj = {};
+		obj[key] = value;
+		/*chrome.storage.sync.set(obj, function() {
           //console.log('Value is set to ' + value);
 		  alert("copied..."+value);
-        });
+        });*/
+		setCookie(key, value);
 }
 function _pasteClick ( info,tab, key) {		
 		//var val = "/'"+key+"'/";
 		/*chrome.storage.local.get([key], function(result) {          
 		  alert(result.value);
         });*/
-		 chrome.storage.sync.get([key], function(result) {
+		/* chrome.storage.sync.get([key], function(result) {
           alert('Value currently is ' + result.value);
-        });
+        });*/
+	alert(getCookie(key));
       
 		
 /*
@@ -127,4 +130,26 @@ function _pasteClick ( info,tab, key) {
         var _d = _win.document;
         _d.execCommand("copy", false, null); 		
 		chrome.storage.local.set({key: value});*/
+}
+
+function setCookie(cname, cvalue) {
+  var d = new Date();
+  d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
