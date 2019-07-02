@@ -1,0 +1,16 @@
+{ 
+"background": {
+      "page": "bkg.htm"
+   },
+  "name": "Extender", 
+  "description": "Shows some of the features of the Context Menus 
+API", 
+  "version": "1.0", 
+  "permissions": ["contextMenus", "background", "storage"],
+  "manifest_version": 2,
+  "icons": {
+          "16": "icon-bitty.png",
+          "48": "icon-small.png",
+          "128": "icon-large.png"
+        }
+} 
